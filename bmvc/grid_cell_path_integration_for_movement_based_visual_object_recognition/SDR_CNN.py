@@ -46,15 +46,12 @@ np.random.seed(seed_val)
 # Parameters
 TRAIN_NEW_NET = True  # To generate all the SDRs needed for down-stream use in other
 # programs, train a network and run this again with TRAIN_NEW_NET=False
-
 # k-WTA parameters
 PERCENT_ON = 0.15  # Recommend 0.15
 BOOST_STRENGTH = 20.0  # Recommend 20
-
 DATASET = "mnist"  # Options are "mnist" or "fashion_mnist"; note in some cases
 # fashion-MNIST may not have full functionality (e.g. normalization, subsequent use of
 # SDRs by downstream classifiers)
-
 LEARNING_RATE = 0.01  # Recommend 0.01
 MOMENTUM = 0.5  # Recommend 0.5
 EPOCHS = 10  # Recommend 10
@@ -197,11 +194,12 @@ class SDRCNNBase(nn.Module):
     def __init__(self, percent_on, boost_strength):
         super(SDRCNNBase, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=64, kernel_size=5,
-                               padding=2)
-        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+                               padding=2) # padding=2 means add 4 pixels surrounding
+        # [64, 28, 28]
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2) # [64, 14, 14]
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=5,
-                               padding=0)
-        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+                               padding=0) # [128, 10, 10]
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2) # [128, 5, 5]
         self.k_winner = KWinners2d(channels=128, percent_on=percent_on,
                                    boost_strength=boost_strength, local=True)
         self.dense1 = nn.Linear(in_features=128 * 5 * 5, out_features=256)

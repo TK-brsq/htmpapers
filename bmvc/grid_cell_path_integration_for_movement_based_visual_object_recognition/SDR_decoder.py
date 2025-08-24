@@ -25,14 +25,12 @@ by a CNN's middle layers
 
 import math
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets
-
 seed_val = 1
 torch.manual_seed(seed_val)
 np.random.seed(seed_val)
@@ -42,7 +40,7 @@ TRAIN_NEW_NET = True
 EPOCHS = 10  # Recommend 10
 BATCH_SIZE = 64  # Recommend 64
 
-
+# size change
 class MLPDecoder(torch.nn.Module):
     def __init__(self):
         super(MLPDecoder, self).__init__()
@@ -56,7 +54,7 @@ class MLPDecoder(torch.nn.Module):
 
         return x
 
-
+# path
 def initialize():
 
     net = MLPDecoder()
@@ -115,7 +113,7 @@ def initialize():
     return (net, training_input, testing_input, training_sources,
             testing_decoder_sources, training_labels, testing_labels)
 
-
+# path
 def train_net(net, training_input, training_sources, training_labels):
 
     criterion = torch.nn.MSELoss()
@@ -147,7 +145,7 @@ def train_net(net, training_input, training_sources, training_labels):
 
     print("Finished Training")
 
-
+# path
 def generate_images(net, net_input, sources, labels):
 
     net.load_state_dict(torch.load("saved_networks/" + DATASET + "_decoder.pt"))

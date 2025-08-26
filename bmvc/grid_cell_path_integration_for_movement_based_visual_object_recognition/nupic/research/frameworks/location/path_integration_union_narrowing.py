@@ -193,7 +193,6 @@ class PIUNCorticalColumn(object):
     self.L4 = ApicalTiebreakPairMemory(**L4Params)
 
 
-
   def movementCompute(self, displacement, noiseFactor = 0, moduleNoiseFactor = 0):
     """
     @param displacement (dict)

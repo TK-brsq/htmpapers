@@ -1,8 +1,10 @@
 import random
 from tqdm import tqdm
+import csv
 import numpy as np
 from dataloader import DataLoader, MMDataLoader, PseudoDataLoader, PseudoDataLoader0, PseudoDataLoader1
-from GcCnn import ControlGCN
+#from GcCnn import ControlGCN
+from B_GcCnn import ControlGCN
 import matplotlib.pyplot as plt
 from datetime import datetime
 import pytz
@@ -122,6 +124,12 @@ if __name__ == '__main__':
         'save': True,
         'n_seeds': 1,
     }
+    with open("log_learn.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.write('learn')
+    with open("log_infer.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.write('learn')
 
     # run
     experiment = Experiment(**config)
